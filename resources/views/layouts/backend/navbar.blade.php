@@ -14,7 +14,8 @@
     </ul>
     <div class="dropdown">
         <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-          Select Language
+            {{ LaravelLocalization::getCurrentLocaleName() }}
+
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
              @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)

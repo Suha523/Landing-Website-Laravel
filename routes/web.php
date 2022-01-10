@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PortfolioController;
 use Illuminate\Support\Facades\Route;
 //use Mcamara\LaravelLocalization\LaravelLocalization;
 
@@ -19,9 +20,12 @@ Route::group(
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => ['auth', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
     ], function(){
-        Route::get('/dashboard', function () {
+
+    Route::get('/dashboard', function () {
             return view('layouts.backend.index');
         })->name('dashboard');
+
+    Route::resource('portfolios',PortfolioController::class);
     });
 
 
