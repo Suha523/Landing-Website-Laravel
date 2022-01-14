@@ -54,19 +54,22 @@
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-</div>
+
+  </div>
 
   <!-- /.content-wrapper -->
-   @include('layouts.backend.footer')
 
+  @include('layouts.backend.footer')
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
+
   </aside>
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
 @include('layouts.backend.scripts')
+@yield('js')
 </body>
 </html>

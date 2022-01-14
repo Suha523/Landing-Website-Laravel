@@ -17,8 +17,24 @@ class PortfolioController extends Controller
     public function index()
     {
         //
-        $portfolios = portfolio::all();
+        $portfolios = portfolio::paginate(5);
         return view('layouts.backend.portfolio.index',compact('portfolios'));
+    }
+
+    public function getData(){
+        $portfolios = portfolio::all();
+        return response()->json([
+           'portfolios' => $portfolios,
+        ]);
+    }
+
+    public function get_edit(Request $request){
+       $portfolio = portfolio::findOrFail($request->id);
+       return response()->json([
+          'name_en' => $portfolio->getTranslation('name','en'),
+          'name_ar' => $portfolio->getTranslation('name', 'ar'),
+          'description' => $portfolio->description,
+       ]);
     }
 
     /**
@@ -41,15 +57,24 @@ class PortfolioController extends Controller
     {
         //
 
+
         try{
             portfolio::create([
                 'name'=>['en' => $request->name_en, 'ar' => $request->name_ar],
                 'description'=>$request->description,
             ]);
-            return redirect()->back()->with('success','The Portfolio is added successfuly');
+            session()->flash('add',trans('backend/message.success'));
+            // return redirect()->back();
+            return response()->json([
+              'done' => 'Done',
+            ]);
         }
         catch(Exception $e){
-            return redirect()->back()->withErrors('error',$e->getMessage());
+            // return redirect()->back()->withErrors('error',$e->getMessage());
+             return response()->json([
+                'done' => 'error',
+                'error' => $e->getMessage(),
+             ]);
         }
 
     }
@@ -94,6 +119,8 @@ class PortfolioController extends Controller
      * @param  \App\Models\portfolio  $portfolio
      * @return \Illuminate\Http\Response
      */
+
+
     public function destroy(portfolio $portfolio)
     {
         //

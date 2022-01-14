@@ -15,50 +15,85 @@ Portfolio
     <div class="card">
         <div class="card-header">
               <div class="d-flex justify-content-between">
-                <h3 class="card-title m-2">Bordered Table</h3>
+                {{-- <h3 class="card-title m-2">Bordered Table</h3> --}}
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Add Portfolio Category
+                    {{ trans('backend/portfolio.Add') }}
                 </button>
               </div>
            @include('layouts.backend.portfolio.create')
+           @include('layouts.backend.portfolio.edit')
 
 
 
         </div>
         <!-- /.card-header -->
         <div class="card-body">
+            @if ($errors->any())
+            <div class="alert alert-danger">
+               <ul>
+                   @foreach ($errors->any() as $error)
+                      <li>{{$error}}</li>
+                   @endforeach
+               </ul>
+            </div>
+            @endif
+
+            @if (Session::has('add'))
+                <div class="alert alert-success">
+                     {{Session::get('add')}}
+                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                </div>
+            @else
+
+            @endif
           <table class="table table-bordered">
             <thead>
               <tr>
-                {{-- <th style="width: 10px">#</th> --}}
-                <th>Name</th>
-                <th>Description</th>
-                <th>Action</th>
+                <th style="width: 10px">#</th>
+                <th>{{ trans('backend/portfolio.name') }}</th>
+                <th>{{ trans('backend/portfolio.desc') }}</th>
+                <th>{{ trans('backend/portfolio.actions') }}</th>
               </tr>
             </thead>
-            <tbody>
-                 <tr>
-                     @foreach ($portfolios as $portfolio)
+            <tbody id="tbody">
+               <!-- show the data using ajax -->
 
-                         <td>{{$portfolio->name}}</td>
-                         <td>{{$portfolio->description}}</td>
 
-                     @endforeach
-                 </tr>
+
+               <!-- show the data using laravel -->
+                    {{-- @forelse ($portfolios as $portfolio)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$portfolio->name}}</td>
+                            <td>{{$portfolio->description}}</td>
+                            <td>
+
+                                <button class="btn btn-info">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4" class="text-center text-red">No Data To Show</td>
+                        </tr>
+                    @endforelse --}}
+
             </tbody>
           </table>
         </div>
         <!-- /.card-body -->
-        <div class="card-footer clearfix">
-          <ul class="pagination pagination-sm m-0 float-right">
-            <li class="page-item"><a class="page-link" href="#">«</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">»</a></li>
+        {{-- <div class="card-footer clearfix">
+          <ul class="pagination pagination-sm m-0 {{App::getLocale()=='en' ? 'float-right' : 'float-left'}}>
+            {{$portfolios->links()}}
           </ul>
-        </div>
+        </div> --}}
       </div>
 </div>
 @endsection

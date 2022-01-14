@@ -1,7 +1,9 @@
 <?php
 
 return [
-    'Dashboard'=>'الرئيسية',
+    'Dashboard' => 'الرئيسية',
+    'close' => 'اغلاق',
+    'save' =>'حفظ البيانات',
 ]
 
  ?>

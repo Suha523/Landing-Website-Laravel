@@ -25,6 +25,8 @@ Route::group(
             return view('layouts.backend.index');
         })->name('dashboard');
 
+    Route::get('/getPortfolios',[PortfolioController::class,'getData'])->name('portfolios.get');
+    Route::get('/get_edit',[PortfolioController::class,'get_edit'])->name('portfolios.get_edit');
     Route::resource('portfolios',PortfolioController::class);
     });
 
