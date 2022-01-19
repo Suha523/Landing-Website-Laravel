@@ -14,7 +14,7 @@
                 <!-- form start -->
              <div class="row">
                  <div class="col-md-12">
-                    <form id="addForm">
+                    <form id="updateForm">
                         <div class="loading"></div>
                         @csrf
 
@@ -22,14 +22,16 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">{{ trans('backend/portfolio.add_ar_name') }}</label>
-                                        <input id="name_ar" type="text" name="name_ar" class="form-control" id="exampleInputEmail1">
-                                      </div>
+                                        <label>{{ trans('backend/portfolio.add_ar_name') }}</label>
+                                        <input id="name_ar" type="text" name="name_ar" class="form-control">
+                                        <input hidden id="port_id" type="text" name="port_id" class="form-control">
+
+                                    </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">{{ trans('backend/portfolio.add_en_name') }}</label>
-                                        <input id="name_en" type="text" name="name_en" class="form-control" id="exampleInputEmail1">
+                                        <label>{{ trans('backend/portfolio.add_en_name') }}</label>
+                                        <input id="name_en" type="text" name="name_en" class="form-control">
                                       </div>
                                 </div>
                             </div>
@@ -43,7 +45,7 @@
                         <div class="card-footer">
                             <div class="modal-footer">
                                 <button type="button" id="close" class="btn btn-secondary" data-dismiss="modal">{{ trans('backend/public.close') }}</button>
-                                <button type="button" id="add_portfolio" class="btn btn-primary">{{ trans('backend/public.save') }}</button>
+                                <button type="button" id="update_portfolio" class="btn btn-primary">{{ trans('backend/public.save') }}</button>
                               </div>
                         </div>
                       </form>
@@ -55,3 +57,8 @@
       </div>
     </div>
 </div>
+
+
+
+
+

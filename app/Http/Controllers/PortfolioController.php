@@ -34,6 +34,7 @@ class PortfolioController extends Controller
           'name_en' => $portfolio->getTranslation('name','en'),
           'name_ar' => $portfolio->getTranslation('name', 'ar'),
           'description' => $portfolio->description,
+          'port_id' => $portfolio->id,
        ]);
     }
 
@@ -108,9 +109,28 @@ class PortfolioController extends Controller
      * @param  \App\Models\portfolio  $portfolio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, portfolio $portfolio)
+    public function update(Request $request)
     {
-        //
+
+         try{
+            $portfolio = portfolio::findOrFail($request->port_id);
+            $portfolio->update([
+                'name'=>['en' => $request->name_en, 'ar' => $request->name_ar],
+                'description'=>$request->description,
+            ]);
+            session()->flash('add',trans('backend/message.success'));
+            // return redirect()->back();
+            return response()->json([
+              'done' => 'Done',
+            ]);
+        }
+        catch(Exception $e){
+            // return redirect()->back()->withErrors('error',$e->getMessage());
+             return response()->json([
+                'done' => 'error',
+                'error' => $e->getMessage(),
+             ]);
+        }
     }
 
     /**
@@ -121,8 +141,24 @@ class PortfolioController extends Controller
      */
 
 
-    public function destroy(portfolio $portfolio)
+    public function destroy(Request $request)
     {
-        //
+        try{
+            $portfolio = portfolio::findOrFail($request->id);
+            $portfolio->delete();
+            session()->flash('delete',trans('backend/message.deleted'));
+            // return redirect()->back();
+            return response()->json([
+                'done' => 'Done',
+              'id' => $portfolio->id,
+            ]);
+        }
+        catch(Exception $e){
+            // return redirect()->back()->withErrors('error',$e->getMessage());
+             return response()->json([
+                'done' => 'error',
+                'error' => $e->getMessage(),
+             ]);
+        }
     }
 }

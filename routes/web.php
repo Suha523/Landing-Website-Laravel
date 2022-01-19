@@ -27,6 +27,8 @@ Route::group(
 
     Route::get('/getPortfolios',[PortfolioController::class,'getData'])->name('portfolios.get');
     Route::get('/get_edit',[PortfolioController::class,'get_edit'])->name('portfolios.get_edit');
+    Route::post('/updatePortfolio',[PortfolioController::class,'update'])->name('portfolios.myUpdate');
+    Route::post('/deletePortfolio',[PortfolioController::class,'destroy'])->name('portfolios.delete');
     Route::resource('portfolios',PortfolioController::class);
     });
 

@@ -21,6 +21,8 @@
   <link rel="stylesheet" href="{{asset('backend/assets/css/rtl.css')}}">
   @endif
 
+     <link rel="stylesheet" href="{{asset('backend/assets/css/sweetalert2.min.css')}}">
+     <link rel="stylesheet" href="{{asset('backend/assets/css/toastr.min.css')}}">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{asset('backend/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
   <!-- Daterange picker -->

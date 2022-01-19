@@ -107,7 +107,9 @@
 </div>
 
   @section('js')
+
       <script>
+
            getData();
            function getData(){
                let tbody=$('#tbody');
@@ -120,7 +122,7 @@
                     $.each(data.portfolios,function(key,item){
                         // console.log(item.name.{{App::getLocale()}});
                         tbody.append(
-                           ` <tr>
+                           ` <tr id="${item.id}">
                             <td>${key+1}</td>
                             <td>${item.name.{{App::getLocale()}}}</td>
                             <td>${item.description}</td>
@@ -130,7 +132,7 @@
                                 data-toggle="modal" data-target="#edit_portfolio">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button class="btn btn-danger">
+                                <button port-id="${item.id}" class="btn btn-danger deletePortfolio">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </td>
@@ -152,6 +154,7 @@
                     $("#name_ar").val(response.name_ar);
                     $("#name_en").val(response.name_en);
                     $("#description").html(response.description);
+                    $("#port_id").val(response.port_id);
                 }
                });
            });
@@ -193,6 +196,95 @@
                   }
               });
            });
+
+           $(document).on('click','#update_portfolio',function (e) {
+               e.preventDefault();
+             let form = $('#updateForm')[0];
+             let formData = new FormData(form);
+
+             $.ajax({
+                type: 'post',
+                url: '{{route('portfolios.myUpdate')}}',
+                data: formData,
+                contentType: false,
+                processData: false,
+                beforeSend:function(){
+                    $('.loading').css('display','block');
+                    $('#updateForm input').attr('readonly',true);
+                    $('textarea').attr('readonly',true);
+                    $('#close').attr('disabled', true);
+                    $('#update_portfolio').attr('disabled', true);
+                  },
+                  complete:function(){
+                    setTimeout(() => {
+                        $('.loading').css('display','none');
+                        $('#edit_portfolio').modal('hide'); // to hide the modal
+                        $('#updateForm input').attr('readonly',false);
+                        $('textarea').attr('readonly',false);
+                        $('#close').attr('disabled', false);
+                        $('#update_portfolio').attr('disabled', false);
+                        getData();
+                    }, 3000);
+                  },
+                success: function() {
+                    $('#updateForm').trigger('reset');
+                },
+             });
+
+           });
+
+           $(document).on('click','.deletePortfolio',function () {
+              let id = $(this).attr('port-id');
+              $.ajax({
+                  type:'post',
+                  url:'{{route('portfolios.delete')}}',
+                  data: {
+                    'id':id,
+                    '_token':'{{csrf_token()}}',
+                  },
+
+                  success:function(response) {
+                //       console.log(response.id);
+                //    $(`#${response.id}`).remove();
+                const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+swalWithBootstrapButtons.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Yes, delete it!',
+  cancelButtonText: 'No, cancel!',
+  reverseButtons: true
+}).then((result) => {
+  if (result.isConfirmed) {
+    @if(App::getLocale()=='ar')
+        toastr.options.rtl = true;
+    @endif
+    toastr.success("{{Session::get('delete')}}");
+    $(`#${response.id}`).remove();
+  } else if (
+    /* Read more about handling dismissals below */
+    result.dismiss === Swal.DismissReason.cancel
+  ) {
+    swalWithBootstrapButtons.fire(
+      'Cancelled',
+      'Your imaginary file is safe :)',
+      'error'
+    )
+  }
+})
+
+                  }
+              });
+            });
+
 
       </script>
   @endsection

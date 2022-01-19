@@ -46,8 +46,6 @@ Portfolio
                         <span aria-hidden="true">&times;</span>
                       </button>
                 </div>
-            @else
-
             @endif
           <table class="table table-bordered">
             <thead>
