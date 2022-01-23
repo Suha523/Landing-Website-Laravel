@@ -29,6 +29,8 @@ Route::group(
     Route::get('/get_edit',[PortfolioController::class,'get_edit'])->name('portfolios.get_edit');
     Route::post('/updatePortfolio',[PortfolioController::class,'update'])->name('portfolios.myUpdate');
     Route::post('/deletePortfolio',[PortfolioController::class,'destroy'])->name('portfolios.delete');
+    Route::get('/exportPortfolio',[PortfolioController::class,'export'])->name('portfolios.export');
+    Route::get('/PDFPortfolio',[PortfolioController::class,'generate_pdf'])->name('portfolios.pdf');
     Route::resource('portfolios',PortfolioController::class);
     });
 

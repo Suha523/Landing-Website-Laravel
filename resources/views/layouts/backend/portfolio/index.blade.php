@@ -20,6 +20,11 @@ Portfolio
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                     {{ trans('backend/portfolio.Add') }}
                 </button>
+                <div class="download">
+                    <a href="{{route('portfolios.export')}}" class="btn btn-success"><i class="fas fa-file-excel mr-2"></i>Excel</a>
+                    <a href="{{route('portfolios.pdf')}}" class="btn btn-danger"><i class="fas fa-file-pdf mr-2"></i>PDF</a>
+                </div>
+
               </div>
            @include('layouts.backend.portfolio.create')
            @include('layouts.backend.portfolio.edit')

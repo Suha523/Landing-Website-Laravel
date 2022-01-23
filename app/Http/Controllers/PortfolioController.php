@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PortfolioExport;
 use App\Models\portfolio;
 use Exception;
 use Illuminate\Http\Request;
+use PDF;
 
 class PortfolioController extends Controller
 {
@@ -37,6 +38,16 @@ class PortfolioController extends Controller
           'port_id' => $portfolio->id,
        ]);
     }
+
+    public function generate_pdf()
+  {
+      $portfolios=portfolio::all();
+    $data = [
+      'portfolios' => $portfolios,
+    ];
+    $pdf = PDF::loadView('layouts.backend.portfolio.pdf', $data);
+    return $pdf->stream('document.pdf');
+  }
 
     /**
      * Show the form for creating a new resource.
@@ -139,6 +150,12 @@ class PortfolioController extends Controller
      * @param  \App\Models\portfolio  $portfolio
      * @return \Illuminate\Http\Response
      */
+
+
+    public function export()
+    {
+        return Excel::download(new PortfolioExport, 'portfolios.xlsx');
+    }
 
 
     public function destroy(Request $request)

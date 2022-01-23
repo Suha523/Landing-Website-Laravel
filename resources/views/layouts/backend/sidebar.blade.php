@@ -43,18 +43,19 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{route('dashboard')}}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        {{ trans('backend/public.Dashboard') }}
+                      </a>
+                  </li>
               <li class="nav-item">
-                <a href="{{route('portfolios.index')}}" class="nav-link active">
+                <a href="{{route('portfolios.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                  {{ trans('backend/sidebar.Portfolio') }}
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v2</p>
-                </a>
-              </li>
+
               <li class="nav-item">
                 <a href="./index3.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
