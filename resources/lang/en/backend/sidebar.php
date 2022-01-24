@@ -1,7 +1,8 @@
 <?php
 
   return [
-      'Portfolio'=>'Portfolio',
+      'Portfolio'=>'Portfolios',
+      'User'=>'Users',
   ];
 
 ?>

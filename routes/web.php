@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 //use Mcamara\LaravelLocalization\LaravelLocalization;
 
@@ -32,6 +33,7 @@ Route::group(
     Route::get('/exportPortfolio',[PortfolioController::class,'export'])->name('portfolios.export');
     Route::get('/PDFPortfolio',[PortfolioController::class,'generate_pdf'])->name('portfolios.pdf');
     Route::resource('portfolios',PortfolioController::class);
+    Route::resource('users',UserController::class);
     });
 
 
