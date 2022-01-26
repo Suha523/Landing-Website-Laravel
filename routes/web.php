@@ -32,6 +32,10 @@ Route::group(
     Route::post('/deletePortfolio',[PortfolioController::class,'destroy'])->name('portfolios.delete');
     Route::get('/exportPortfolio',[PortfolioController::class,'export'])->name('portfolios.export');
     Route::get('/PDFPortfolio',[PortfolioController::class,'generate_pdf'])->name('portfolios.pdf');
+    Route::get('getUsers',[UserController::class,'getData'])->name('users.get');
+    Route::get('/get_edit',[UserController::class,'get_edit'])->name('users.get_edit');
+    Route::post('/updateUser',[UserController::class,'update'])->name('users.myUpdate');
+    Route::post('/deleteUser',[UserController::class,'destroy'])->name('users.delete');
     Route::resource('portfolios',PortfolioController::class);
     Route::resource('users',UserController::class);
     });

@@ -10,6 +10,7 @@
     'add_name' =>'Name',
     'add_email' => 'Email',
     'add_password' =>'Password',
+    'edit' => 'Edit User\'s Information',
 
   ];
 

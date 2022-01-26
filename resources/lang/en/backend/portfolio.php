@@ -9,6 +9,7 @@
      'name' => 'Name',
      'desc' => 'Description',
      'actions' => 'Actions',
+     'edit' => 'Edit Portfolio\'s Information',
 
   ];
 
