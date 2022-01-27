@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use PDF;
 use Exception;
 use App\Models\User;
+use App\Exports\UsersExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -128,6 +130,21 @@ class UserController extends Controller
           }
     }
 
+
+    public function export()
+{
+    return Excel::download(new UsersExport, 'users.xlsx');
+}
+
+public function generate_pdf()
+  {
+      $users = User::all();
+    $data = [
+      'users' =>$users,
+    ];
+    $pdf = PDF::loadView('layouts.backend.user.pdf', $data);
+    return $pdf->stream('users.pdf');
+  }
     /**
      * Remove the specified resource from storage.
      *

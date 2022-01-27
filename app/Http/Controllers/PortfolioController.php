@@ -46,7 +46,7 @@ class PortfolioController extends Controller
       'portfolios' => $portfolios,
     ];
     $pdf = PDF::loadView('layouts.backend.portfolio.pdf', $data);
-    return $pdf->stream('document.pdf');
+    return $pdf->stream('portfolios.pdf');
   }
 
     /**

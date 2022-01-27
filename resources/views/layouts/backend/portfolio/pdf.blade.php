@@ -3,15 +3,30 @@
   header: page-header;
   footer: page-footer;
 }
+.pdf{
+    margin-top: 50px;
+}
+.pdf th, td {
+    border-bottom: 1px solid #000;
+    text-align: center;
+}
+
+.pdf tr:nth-child(even) {
+    background-color: #fff2cd;
+}
+
+.header{
+    margin-bottom: 50px;
+}
 </style>
 
 
-<htmlpageheader name="page-header">
-    Your Header Content
-  </htmlpageheader>
+<htmlpageheader class="header" name="page-header">
+    <h1>Our Portfolios</h1>
+</htmlpageheader>
 
 
-<table border="1">
+<table class="pdf" width="100%">
     <thead>
     <tr>
         <th>#</th>
